@@ -21,9 +21,9 @@
 
 // ################## EDIT THESE SETTINGS MANUALLY ################
 
-#define DAVINCI 1// "0" if not DAVINCI, "1" For DAVINCI 1.0, "2" For DAVINCI 2.0 with 1 FAN, "3" For DAVINCI 2.0 with 2 FAN, 4 for AiO (WITH NO SCANNER SUPPORT)
-#define MODEL  0//"0" for first generation (jumper JP1 to reset ) , "1" for new generation   (jumper J37 to reset)
-#define REPURPOSE_FAN_TO_COOL_EXTRUSIONS 0 //Setting this to 1 will repurpose the main Extruder cooling fan to be controlled VIA M106/M107
+#define DAVINCI 3// "0" if not DAVINCI, "1" For DAVINCI 1.0, "2" For DAVINCI 2.0 with 1 FAN, "3" For DAVINCI 2.0 with 2 FAN, 4 for AiO (WITH NO SCANNER SUPPORT)
+#define MODEL  1//"0" for first generation (jumper JP1 to reset ) , "1" for new generation   (jumper J37 to reset)
+#define REPURPOSE_FAN_TO_COOL_EXTRUSIONS 1 //Setting this to 1 will repurpose the main Extruder cooling fan to be controlled VIA M106/M107
                                            //Warning: for DaVinci 1.0 need to add a permanent fan with power supply to cool extruder
 
 // ################ END MANUAL SETTINGS ##########################
@@ -45,11 +45,11 @@
 //Decouple Test feature, do not disable it unless you know what you are doing!!!
 //if you have decouple issue it means you have hardware issue or bad air flow management!!!
 //this feature is a safety feature, if you disable it is dangerous!!!
-#define FEATURE_DECOUPLE_TEST 1
+#define FEATURE_DECOUPLE_TEST 0
 //this will hide on sd card no extension files and bin/hex/dat files to make navigation and selection easier
 #define HIDE_BINARY_ON_SD 1
 #define UI_AUTOLIGHTOFF_AFTER 1
-#define ENABLE_CLEAN_DRIPBOX 1
+#define ENABLE_CLEAN_DRIPBOX 0
 #define ENABLE_CLEAN_NOZZLE 1
 #define FEATURE_ENCODER	0
 //ensure of some define if AiO
@@ -316,11 +316,11 @@ Overridden if EEPROM activated.*/
 // then you have 3 seconds of increased heating to reach 1°„C.
 #define DECOUPLING_TEST_MIN_TEMP_RISE 1
 // Set to 1 if you want firmware to kill print on decouple
-#define KILL_IF_SENSOR_DEFECT 1
+#define KILL_IF_SENSOR_DEFECT 0
 
 #endif
 // for each extruder, fan will stay on until extruder temperature is below this value
-#define EXTRUDER_FAN_COOL_TEMP 50
+#define EXTRUDER_FAN_COOL_TEMP 60
 // Retraction for sd pause over lcd
 #define RETRACT_ON_PAUSE 2
 // These commands get executed after storing position and going to park position.
@@ -682,7 +682,7 @@ need to increase this value. For one 6.8 Ohm heater 10 is ok. With two 6.8 Ohm h
 extrusion position might be at any value like 23344. If you then have an G1 E-2 it will roll back 23 meter! */
 #define EXTRUDE_MAXLENGTH 100
 /** Skip wait, if the extruder temperature is already within x degrees. Only fixed numbers, 0 = off */
-#define SKIP_M109_IF_WITHIN 2
+#define SKIP_M109_IF_WITHIN 10
 
 /** \brief Set PID scaling
 
@@ -830,7 +830,7 @@ Value is used for all generic tables created. */
 
 #define HEATED_BED_MAX_TEMP 130
 /** Skip M190 wait, if heated bed is already within x degrees. Fixed numbers only, 0 = off. */
-#define SKIP_M190_IF_WITHIN 5
+#define SKIP_M190_IF_WITHIN 6
 
 // Select type of your heated bed. It's the same as for EXT0_TEMPSENSOR_TYPE
 // set to 0 if you don't have a heated bed
@@ -1243,7 +1243,7 @@ Mega. Used only for nonlinear systems like delta or tuga. */
     This helps cooling the Stepper motors between two print jobs.
     Overridden if EEPROM activated.
 */
-#define STEPPER_INACTIVE_TIME 360
+#define STEPPER_INACTIVE_TIME 5
 /** After x seconds of inactivity, the system will go down as far it can.
     It will at least disable all stepper motors and heaters. If the board has
     a power pin, it will be disabled, too.
@@ -1255,8 +1255,8 @@ Mega. Used only for nonlinear systems like delta or tuga. */
     The axis order in all axis related arrays is X, Y, Z
      Overridden if EEPROM activated.
     */
-#define MAX_FEEDRATE_X 200
-#define MAX_FEEDRATE_Y 200
+#define MAX_FEEDRATE_X 150
+#define MAX_FEEDRATE_Y 150
 #define MAX_FEEDRATE_Z 5
 
 /** Home position speed in mm/s. Overridden if EEPROM activated. */
@@ -1471,7 +1471,7 @@ boards you might need to make it inverting.
  0 = Disable heaters/motors, wait forever until someone presses reset.
  1 = restart by resetting the AVR controller. The USB connection will not reset if managed by a different chip!
 */
-#define KILL_METHOD 1
+#define KILL_METHOD 0
 
 /** Appends the line number after every ok send, to acknowledge the received command. Uncomment for plain ok ACK if your host has problems with this */
 #define ACK_WITH_LINENUMBER 1       
@@ -1673,7 +1673,7 @@ motorized bed leveling */
    This feature requires a working z-probe and you should have z-endstop at the top not at the bottom.
    The same 3 points are used for the G29 command.
 */
-#define FEATURE_AUTOLEVEL true
+#define FEATURE_AUTOLEVEL false
 #if DAVINCI==1
 #define Z_PROBE_X1 -7
 #define Z_PROBE_Y1 -10
@@ -2005,13 +2005,13 @@ computations, so do not enable it if your display works stable!
 #define UI_PAGES_DURATION 4000
 
 /** Delay of start screen in milliseconds */
-#define UI_START_SCREEN_DELAY 2000
+#define UI_START_SCREEN_DELAY 500
 /** Uncomment if you don't want automatic page switching. You can still switch the
 info pages with next/previous button/click-encoder */
 #define UI_DISABLE_AUTO_PAGESWITCH 1
 
 /** Time to return to info menu if x milliseconds no key was pressed. Set to 0 to disable it. */
-#define UI_AUTORETURN_TO_MENU_AFTER 30000
+#define UI_AUTORETURN_TO_MENU_AFTER 300000
 
 #define FEATURE_UI_KEYS 0
 
@@ -2039,11 +2039,11 @@ same setting.
 #define UI_KEY_BOUNCETIME 10
 
 /** \brief First time in ms until repeat of action. */
-#define UI_KEY_FIRST_REPEAT 500
+#define UI_KEY_FIRST_REPEAT 250
 /** \brief Reduction of repeat time until next execution. */
 #define UI_KEY_REDUCE_REPEAT 50
 /** \brief Lowest repeat time. */
-#define UI_KEY_MIN_REPEAT 50
+#define UI_KEY_MIN_REPEAT 40
 
 #define FEATURE_BEEPER 1
 /**
@@ -2060,19 +2060,19 @@ Values must be in range 1..255
 // ###############################################################################
 
 // Values used for preheat
-#define UI_SET_PRESET_HEATED_BED_TEMP_PLA 60
-#define UI_SET_PRESET_EXTRUDER_TEMP_PLA   180
-#define UI_SET_PRESET_HEATED_BED_TEMP_ABS 90
-#define UI_SET_PRESET_EXTRUDER_TEMP_ABS   230
+#define UI_SET_PRESET_HEATED_BED_TEMP_PLA 90
+#define UI_SET_PRESET_EXTRUDER_TEMP_PLA   200
+#define UI_SET_PRESET_HEATED_BED_TEMP_ABS 120
+#define UI_SET_PRESET_EXTRUDER_TEMP_ABS   238
 
 //Davinci specific
 // Loading / Unloading Filament value
 #define UI_SET_PRESET_LOADING_FEEDRATE  2 
 #define UI_SET_PRESET_UNLOADING_FEEDRATE  4
-#define UI_SET_PRESET_UNLOAD_LOAD_DISTANCE  60 
+#define UI_SET_PRESET_UNLOAD_LOAD_DISTANCE  50 
 
 // Extreme values
-#define UI_SET_MIN_HEATED_BED_TEMP  30
+#define UI_SET_MIN_HEATED_BED_TEMP  60
 #define UI_SET_MAX_HEATED_BED_TEMP 130
 #define UI_SET_MIN_EXTRUDER_TEMP   160
 #define UI_SET_MAX_EXTRUDER_TEMP   270

@@ -4465,8 +4465,9 @@ case UI_ACTION_LOAD_FAILSAFE:
                 Printer::moveToReal(0,20,IGNORE_COORDINATE,IGNORE_COORDINATE,Printer::homingFeedrate[0]);
                 }
             #endif
-            Printer::moveToReal(Printer::xLength/2,Printer::yLength-20,150,IGNORE_COORDINATE,Printer::homingFeedrate[0]);
+            Printer::moveToReal(Printer::xLength/2,Printer::yLength-20,100,IGNORE_COORDINATE,Printer::homingFeedrate[0]);
             Commands::waitUntilEndOfAllMoves();
+            Printer::kill(true);
             step =STEP_WAIT_FOR_OK;
             playsound(3000,240);
             playsound(4000,240);
@@ -4541,11 +4542,6 @@ case UI_ACTION_LOAD_FAILSAFE:
             #endif
             }
         }
-        //cool down if necessary
-        Extruder::setTemperatureForExtruder(extrudertarget1,0);
-        #if NUM_EXTRUDER>1
-        Extruder::setTemperatureForExtruder(extrudertarget2,1);
-        #endif
         if(status==STATUS_OK)
             {
              UI_STATUS_F(Com::translatedF(UI_TEXT_PRINTER_READY_ID));
@@ -5102,8 +5098,6 @@ case UI_ACTION_LOAD_FAILSAFE:
             }
         }
 
-        //cool down if necessary
-        Extruder::setTemperatureForExtruder(extrudertarget,extruderid);
 #if NUM_EXTRUDER > 1
         Printer::moveToReal(Printer::xMin,Printer::yMin,IGNORE_COORDINATE,IGNORE_COORDINATE,Printer::homingFeedrate[0]);
         Extruder::selectExtruderById(tmpextruderid,true);
@@ -5983,16 +5977,9 @@ case UI_ACTION_LOAD_FAILSAFE:
                 }
             #endif
             }
-        //cool down if necessary
-        Extruder::setTemperatureForExtruder(extrudertarget1,0);
-        #if NUM_EXTRUDER>1
-        Extruder::setTemperatureForExtruder(extrudertarget2,1);
-        #endif
-        #if HAVE_HEATED_BED==true
-          Extruder::setHeatedBedTemperature(bedtarget);
-        #endif
         //home again
         Printer::homeAxis(true,true,true);
+        Printer::kill(true);
         if(status==STATUS_OK)
             {
             UI_STATUS_F(Com::translatedF(UI_TEXT_PRINTER_READY_ID));
